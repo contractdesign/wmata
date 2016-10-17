@@ -2,8 +2,9 @@
 # Missing CircuitIds
 
 Some CircuitIds were not observed to be "lit" by a train crossing them
-over a 24-hour period from 10/16/2016 - 10/17/2016.  The file
-``missing.txt`` contains the complete list of missing CircuitIds.
+over a 24-hour period from 10/16/2016 - 10/17/2016 when the API was
+polled at 7 second intervals.  The file ``missing.txt`` contains the
+complete list of missing CircuitIds.
 
 This directory contains the following files are offered as support:
 - ``missing.txt``: see above
