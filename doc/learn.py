@@ -39,7 +39,7 @@ for station in stations['Stations']:
 # print a summarized list of lines along with routes
 #
 for route in sorted( routes['StandardRoutes'], key=lambda r: r['LineCode'] ):
-    print route['LineCode'], route['TrackNum']
+    print 'line:', route['LineCode'], ' track:', route['TrackNum']
     for r in summarize( [r['CircuitId'] for r in route['TrackCircuits']] ):
         print '   ', r[0], '-', r[1]
     print

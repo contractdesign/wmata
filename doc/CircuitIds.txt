@@ -1,62 +1,62 @@
-BL 1
+route = BL line =  1
     2603 - 2673
     966 - 1135
     1378 - 1461
 
-BL 2
+route = BL line =  2
     2678 - 2752
     1159 - 1330
     1544 - 1635
 
-GR 1
+route = GR line =  1
     2117 - 2246
 
-GR 2
+route = GR line =  2
     2254 - 2380
 
-OR 1
+route = OR line =  1
     2773 - 2927
     1090 - 1135
 
-OR 2
+route = OR line =  2
     2932 - 3076
     1283 - 1330
 
-RD 1
+route = RD line =  1
     6 - 203
 
-RD 2
+route = RD line =  2
     209 - 400
 
-SV 1
+route = SV line =  1
     3154 - 3280
     2830 - 2927
     1090 - 1135
     1378 - 1461
 
-SV 2
+route = SV line =  2
     3289 - 3420
     2988 - 3076
     1283 - 1330
     1544 - 1635
 
-YL 1
+route = YL line =  1
     943 - 1054
     3105 - 3123
     2229 - 2246
 
-YL 2
+route = YL line =  2
     1136 - 1248
     3124 - 3145
     2362 - 2380
 
-YLRP 1
+route = YLRP line =  1
     2603 - 2673
     966 - 1054
     3105 - 3123
     2229 - 2246
 
-YLRP 2
+route = YLRP line =  2
     2678 - 2752
     1159 - 1248
     3124 - 3145
