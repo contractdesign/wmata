@@ -54,15 +54,10 @@ Each CircuitId belongs to 1 of the 4 tracks.
 ## Track Circuits
 
 The sensors on the tracks to detect the position of a train are
-[Ansaldo AF-800W AFTC][ansaldo] (Audio Frequency Track Circuit)
-modules (see [report][wmata], p. 3).
-[Alsom Generator II AFTCs][alstom] were used previously but were
+[Ansaldo AF-800W AFTC](http://www.ansaldo-sts.com/sites/ansaldosts.message-asp.com/files/manuali-ansaldo/CatalogCutSheets/RSE-1F2_AF-Gen%20II%20Components.pdf) (Audio Frequency Track Circuit)
+modules (see [report](http://www.wmata.com/about_metro/board_of_directors/board_docs/092414_3BATOUpdate20140924.pdf), p. 3).
+[Alsom Generator II AFTCs](http://www.alstomsignalingsolutions.com/Data/Documents/Track_Circuit_09.pdf) were used previously but were
 replaced after a crash in 2009 due to an issue with parasitic
-oscillation in the sensors (see [blog][wee-z] for an layman's
+oscillation in the sensors (see [blog](http://www.welovedc.com/2009/07/03/sensors-and-indicators-in-plain-english-wmatas-wee-z-issue/) for an layman's
 explanation).
-
-[ansaldo]: http://www.ansaldo-sts.com/sites/ansaldosts.message-asp.com/files/manuali-ansaldo/CatalogCutSheets/RSE-1F2_AF-Gen%20II%20Components.pdf ""
-[wmata]: http://www.wmata.com/about_metro/board_of_directors/board_docs/092414_3BATOUpdate20140924.pdf ""
-[wee-z]: http://www.welovedc.com/2009/07/03/sensors-and-indicators-in-plain-english-wmatas-wee-z-issue/ ""
-[alstom]: http://www.alstomsignalingsolutions.com/Data/Documents/Track_Circuit_09.pdf ""
 
