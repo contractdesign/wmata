@@ -5,23 +5,23 @@ CMD_CURL=curl -H "api_key: ${DEMO_KEY}" --data-ascii "{body}" -X GET
 
 # get all of the train positions
 positions.json:
-	${CMD_CURL} "https://api.wmata.com/TrainPositions/TrainPositions?contentType={contentType}" | jq . > positions.json; \
+	${CMD_CURL} "https://api.wmata.com/TrainPositions/TrainPositions?contentType={contentType}" | jq . > json/positions.json; \
 	sleep 5
 
 # get the standard routes
 
 routes.json:
-	${CMD_CURL} "https://api.wmata.com/TrainPositions/StandardRoutes?contentType={contentType}" | jq . > routes.json; \
+	${CMD_CURL} "https://api.wmata.com/TrainPositions/StandardRoutes?contentType={contentType}" | jq . > json/routes.json; \
 	sleep 5
 
 # stations
 stations.json:
-	${CMD_CURL} "https://api.wmata.com/Rail.svc/json/jStations" | jq . > stations.json; \
+	${CMD_CURL} "https://api.wmata.com/Rail.svc/json/jStations" | jq . > json/stations.json; \
 	sleep 5
 
 # circuits
 circuits.json:
-	${CMD_CURL} "https://api.wmata.com/TrainPositions/TrackCircuits?contentType={contentType}" | jq . > circuits.json
+	${CMD_CURL} "https://api.wmata.com/TrainPositions/TrackCircuits?contentType={contentType}" | jq . > json/circuits.json
 
 json: positions.json routes.json stations.json circuits.json
 
@@ -30,7 +30,7 @@ CircuitIds.txt:
 	./learn.py > CircuitIds.txt
 
 clean:
-	-rm -rf *.json *.txt
+	-rm -rf json/*.json *.txt
 
 
 
