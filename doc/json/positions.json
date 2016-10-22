@@ -1,0 +1,414 @@
+{
+  "TrainPositions": [
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 8213,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2490,
+      "DirectionNum": 1,
+      "CarCount": 0,
+      "TrainId": "016"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 8213,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2581,
+      "DirectionNum": 1,
+      "CarCount": 0,
+      "TrainId": "017"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 8213,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2494,
+      "DirectionNum": 1,
+      "CarCount": 0,
+      "TrainId": "018"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 702,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2817,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "022"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 686,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2804,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "023"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 8213,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2803,
+      "DirectionNum": 1,
+      "CarCount": 0,
+      "TrainId": "024"
+    },
+    {
+      "ServiceType": "NoPassengers",
+      "SecondsAtLocation": 21,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2944,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "053"
+    },
+    {
+      "ServiceType": "NoPassengers",
+      "SecondsAtLocation": 0,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 1445,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "056"
+    },
+    {
+      "ServiceType": "NoPassengers",
+      "SecondsAtLocation": 0,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 2750,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "058"
+    },
+    {
+      "ServiceType": "NoPassengers",
+      "SecondsAtLocation": 10,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 1643,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "089"
+    },
+    {
+      "ServiceType": "Unknown",
+      "SecondsAtLocation": 5,
+      "LineCode": null,
+      "DestinationStationCode": null,
+      "CircuitId": 876,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "102"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "BL",
+      "DestinationStationCode": "G05",
+      "CircuitId": 1068,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "054"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "BL",
+      "DestinationStationCode": "J03",
+      "CircuitId": 1626,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "019"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 53,
+      "LineCode": "BL",
+      "DestinationStationCode": "J03",
+      "CircuitId": 1568,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "020"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 74,
+      "LineCode": "GR",
+      "DestinationStationCode": "E10",
+      "CircuitId": 2255,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "059"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "GR",
+      "DestinationStationCode": "E10",
+      "CircuitId": 1767,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "068"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "GR",
+      "DestinationStationCode": "E10",
+      "CircuitId": 2201,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "081"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 10,
+      "LineCode": "GR",
+      "DestinationStationCode": "F11",
+      "CircuitId": 2045,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "055"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "GR",
+      "DestinationStationCode": "F11",
+      "CircuitId": 2356,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "076"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 42,
+      "LineCode": "GR",
+      "DestinationStationCode": "F11",
+      "CircuitId": 1942,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "084"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "OR",
+      "DestinationStationCode": "D13",
+      "CircuitId": 2869,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "094"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "OR",
+      "DestinationStationCode": "K06",
+      "CircuitId": 1325,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "073"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "OR",
+      "DestinationStationCode": "K06",
+      "CircuitId": 1614,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "085"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 149,
+      "LineCode": "OR",
+      "DestinationStationCode": "K06",
+      "CircuitId": 1711,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "099"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "RD",
+      "DestinationStationCode": "A15",
+      "CircuitId": 764,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "080"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "RD",
+      "DestinationStationCode": "A15",
+      "CircuitId": 673,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "082"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "RD",
+      "DestinationStationCode": "A15",
+      "CircuitId": 857,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "090"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 26,
+      "LineCode": "RD",
+      "DestinationStationCode": "B11",
+      "CircuitId": 103,
+      "DirectionNum": 1,
+      "CarCount": 8,
+      "TrainId": "050"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 63,
+      "LineCode": "RD",
+      "DestinationStationCode": "B11",
+      "CircuitId": 91,
+      "DirectionNum": 1,
+      "CarCount": 8,
+      "TrainId": "079"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "RD",
+      "DestinationStationCode": "B11",
+      "CircuitId": 33,
+      "DirectionNum": 1,
+      "CarCount": 8,
+      "TrainId": "093"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 21,
+      "LineCode": "RD",
+      "DestinationStationCode": "B11",
+      "CircuitId": 7,
+      "DirectionNum": 1,
+      "CarCount": 8,
+      "TrainId": "101"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "SV",
+      "DestinationStationCode": "G05",
+      "CircuitId": 2913,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "052"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "SV",
+      "DestinationStationCode": "G05",
+      "CircuitId": 3211,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "066"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 47,
+      "LineCode": "SV",
+      "DestinationStationCode": "N06",
+      "CircuitId": 2537,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "060"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "SV",
+      "DestinationStationCode": "N06",
+      "CircuitId": 1578,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "083"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "SV",
+      "DestinationStationCode": "N06",
+      "CircuitId": 3342,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "091"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "YL",
+      "DestinationStationCode": "C15",
+      "CircuitId": 3109,
+      "DirectionNum": 2,
+      "CarCount": 0,
+      "TrainId": "071"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "YL",
+      "DestinationStationCode": "C15",
+      "CircuitId": 1966,
+      "DirectionNum": 2,
+      "CarCount": 8,
+      "TrainId": "086"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 42,
+      "LineCode": "YL",
+      "DestinationStationCode": "C15",
+      "CircuitId": 943,
+      "DirectionNum": 2,
+      "CarCount": 6,
+      "TrainId": "097"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 0,
+      "LineCode": "YL",
+      "DestinationStationCode": "E06",
+      "CircuitId": 1790,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "062"
+    },
+    {
+      "ServiceType": "Normal",
+      "SecondsAtLocation": 5,
+      "LineCode": "YL",
+      "DestinationStationCode": "E06",
+      "CircuitId": 1021,
+      "DirectionNum": 1,
+      "CarCount": 6,
+      "TrainId": "074"
+    }
+  ]
+}
