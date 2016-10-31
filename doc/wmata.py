@@ -30,12 +30,16 @@ class wmata(object):
         with open('json/routes.json') as file_routes:
             routes = json.load( file_routes )
 
-        # TODO add multiple LineCodes
         for route in routes['StandardRoutes']:
             for tc in route['TrackCircuits']:
-                self.d_cid2route[ tc['CircuitId'] ]= { 'StationCode': tc['StationCode'],
-                                                       'LineCode': route['LineCode'],
-                                                       'SeqNum': tc['SeqNum'] }
+
+                # a circuit could belong to multiple lines
+                if tc['CircuitId'] not in self.d_cid2route:
+                    self.d_cid2route[ tc['CircuitId'] ]= []
+
+                self.d_cid2route[ tc['CircuitId'] ].append( { 'StationCode': tc['StationCode'],
+                                                              'LineCode': route['LineCode'],
+                                                              'SeqNum': tc['SeqNum'] } )
 
                 self.d_cid2station[ tc['CircuitId'] ] = self.d_code2station.get( tc['StationCode'], None )
 
@@ -100,46 +104,74 @@ class wmata(object):
         else:
             return ''
 
-    def getNext( self, cid ):
-        track = self.getTrack( cid )
-        for n in right:
-            if self.getTrack( n )==track: 
-                return n
-        return None
-
-    def getPrev( self, cid ):
+    def getPrev( self, cid, track, same=True ):
         track = self.getTrack( cid )
 
         left, right = self.getNeighbors(cid)
 
         if left:
             for n in left:
-                if self.getTrack( n )==track: 
-                    return n
+                if same:
+                    if self.getTrack( n )==track: 
+                        return n
+                else:
+                    if self.getTrack( n )!=track:
+                        return n
+
         return None
 
-    def getNext( self, cid ):
+    def getNext( self, cid, track, same=True ):
         track = self.getTrack( cid )
 
         left, right = self.getNeighbors(cid)
         if right:
             for n in right:
-                if self.getTrack( n )==track: 
-                    return n
+                if same:
+                    if self.getTrack( n )==track: 
+                        return n
+                else:
+                    if self.getTrack( n )!=track: 
+                        return n
+
         return None
 
+    def followSwitch( self, cid ):
+        l_cid = [cid]
+
+        track = self.getTrack(cid)
+        left, right = self.getNeighbors(cid)
+
+        # follow successors
+        cid_next = None
+        for r in right:
+            if self.getTrack(r) != track:
+                cid_next = r
+                l_cid.append(cid_next)
+                break
+        if cid_next==None:
+            print 'error'
+            exit
+        print l_cid
+        exit
+        while True:
+            left, right = self.getNeighbors(cid_next)
+            if not right or self.getTrack(cid_next)==2:
+                break
+            cid_next = right[0]
+            l_cid.append( cid_next)
+        return l_cid
 
 
-
-
-    def expandCid( self, cid ):
+    def expandCid( self, cid, same=True ):
         '''return a list of all of the cids on the same track'''
         
         l_cid = [cid]
 
+        track = self.getTrack(cid)
+
         cid_temp = cid
         while True:
-            cid_new = self.getNext( cid_temp )
+            cid_new = self.getNext( cid_temp, track, same )
             if not cid_new:
                 break
 
@@ -148,7 +180,7 @@ class wmata(object):
 
         cid_temp = cid
         while True:
-            cid_new = self.getPrev( cid_temp )
+            cid_new = self.getPrev( cid_temp, track, same )
             if not cid_new:
                 break
 
@@ -158,9 +190,23 @@ class wmata(object):
 
         return l_cid
 
+
+    def getLines( self, cid ):
+        l_line = []
+        if cid in self.d_cid2route:
+            for line in self.d_cid2route[cid]:
+                l_line.append( (line['LineCode'], line['SeqNum']) )
+        return l_line
+
     def printTrackUnit( self, cid ):
         track = self.getTrack(cid)
         print '(%d:%d)\t|' % (track, cid),
+
+        lines = self.getLines(cid)
+        if lines:
+            for line in lines:
+                print '%s #%s' % (line[0] , line[1]),
+        print '\t', self.getStation( cid ),
 
         left, right = self.getNeighbors( cid )
         if left:
@@ -172,9 +218,9 @@ class wmata(object):
             for n in right:
                 if self.getTrack(n) != track:
                     print 'r: (%d:%d)' % (self.getTrack(n), n ),
+        print
 
-        
-        print '\t', self.getStation( cid )
+
 
     def printTrackSegment( self, l_cid ):
         map( self.printTrackUnit, l_cid )
