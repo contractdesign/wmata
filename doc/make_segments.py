@@ -18,32 +18,46 @@ def addSegment( g, l_cid ):
                      'RD': '#be1337',
                      'OR': '#da8707',
                      'YL': '#f5d415',
+                     'YLRP': '#f5d415',
                      'GR': '#00b050',
                      'SV': '#a2a4a1' }
 
     for cid in l_cid:
         color = 'black'
+
+        d_line2seq = dict()
         lines = w.getLines(cid)
-        s_lines = ''
+        for line,seq in lines:
+            d_line2seq[line] = seq
+
+
         if lines:
-            color = d_line2color.get( lines[0][0], 'black' )
-            s_lines = ','.join( map( lambda x: '%s %s' %(x[0], x[1]), lines ) )
-           
-        station = w.getStation(cid)
-
-        if station:
-            label = '{{<left> %d | %d | %s} | { <right> %s }}' % \
-                    (w.getTrack(cid), cid, station, s_lines)
+            s_line = '<TR>'
+            for line in sorted(d_line2color.keys()):
+                if line in d_line2seq:
+                    s_line+= ('<TD BGCOLOR="%s">%s</TD>' % (d_line2color[line], d_line2seq[line] ) )
+                else:
+                    s_line+= '<TD></TD>'
+            s_line += '</TR>'
         else:
-            label = '{{<left> %d | %d } | { <right> %s }}' % \
-                    (w.getTrack(cid), cid, s_lines)
+            s_line = ''
 
 
-        style='solid'
-        if pswitch(cid):
-            style='bold'
+        station = w.getStation(cid)
+        if station:
+            label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+                            <TR><TD>%d</TD> <TD COLSPAN="6">%d</TD> </TR>
+                            <TR> <TD COLSPAN="7">%s</TD> </TR>
+                            %s
+                         </TABLE> >""" % (w.getTrack(cid), cid, station, s_line)
+        else:
+            label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+                            <TR><TD>%d</TD> <TD COLSPAN="6">%d</TD> </TR>
+                            %s
+                         </TABLE> >""" % (w.getTrack(cid), cid, s_line )
 
-        g.add_node( pydot.Node( cid, color=color, label=label, style=style ) )
+
+        g.add_node( pydot.Node( cid, color=color, label=label ) )
 
 
     # create edges
@@ -78,7 +92,7 @@ def pswitch(cid):
 w = wmata()
 g = pydot.Dot( graph_type='graph')
 g.set( 'concentrate', 'true' )
-g.set_node_defaults( shape='record' )
+g.set_node_defaults( shape='none' )
 
 l_cid_lines = [3146, 3281, 2599, 2674, 1, 204, 2769, 2928]
 
@@ -104,6 +118,10 @@ for cid in l_cid_lines:
                     g.add_edge( pydot.Edge( l_cid_temp[-1], n ) )    
 
 
+# print missing cids
+#for i in range(1,3486+1):
+#    if i not in l_cid_total:
+#        print i
 
 
 g.write_svg( 'all.svg' )
