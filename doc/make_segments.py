@@ -36,8 +36,6 @@ def addSegment( g, l_cid ):
             for line in sorted(d_line2color.keys()):
                 if line in d_line2seq:
                     s_line+= ('<TD BGCOLOR="%s">%s</TD>' % (d_line2color[line], d_line2seq[line] ) )
-                else:
-                    s_line+= '<TD></TD>'
             s_line += '</TR>'
         else:
             s_line = ''
@@ -46,13 +44,13 @@ def addSegment( g, l_cid ):
         station = w.getStation(cid)
         if station:
             label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-                            <TR><TD>%d</TD> <TD COLSPAN="6">%d</TD> </TR>
-                            <TR> <TD COLSPAN="7">%s</TD> </TR>
+                            <TR><TD>%d:%d</TD> </TR>
+                            <TR> <TD>%s</TD> </TR>
                             %s
                          </TABLE> >""" % (w.getTrack(cid), cid, station, s_line)
         else:
             label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-                            <TR><TD>%d</TD> <TD COLSPAN="6">%d</TD> </TR>
+                            <TR><TD>%d:%d</TD> </TR>
                             %s
                          </TABLE> >""" % (w.getTrack(cid), cid, s_line )
 
@@ -94,7 +92,9 @@ g = pydot.Dot( graph_type='graph')
 g.set( 'concentrate', 'true' )
 g.set_node_defaults( shape='none' )
 
-l_cid_lines = [3146, 3281, 2599, 2674, 1, 204, 2769, 2928]
+l_cid_lines = [3146, 3281, 2599, 2674, 1, 204, 2769, \
+               2928, 943, 1136, 1055, 1249, 1462, 1636, \
+               2110, 2247]
 
 l_cid_total = set()
 for cid in l_cid_lines:
@@ -118,11 +118,37 @@ for cid in l_cid_lines:
                     g.add_edge( pydot.Edge( l_cid_temp[-1], n ) )    
 
 
-# print missing cids
-#for i in range(1,3486+1):
-#    if i not in l_cid_total:
-#        print i
+for cid in w.allCids():
+    if cid not in l_cid_total:
+
+        label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+        <TR><TD>%d:%d</TD> </TR>
+        </TABLE> >""" % (w.getTrack(cid), cid )
+        g.add_node( pydot.Node( cid, label=label ) )
+        for n in w.getNeighbors(cid):
+            g.add_edge( pydot.Edge( cid, n ) )
+
+
+
+# align stations
+
+d_station2cid = dict()
+
+for cid in w.allCids():
+    station = w.getStation(cid)
+    if station:
+        if station in d_station2cid:
+            d_station2cid[station].append(cid)
+        else:
+            d_station2cid[station] = [cid]
+
+for station in d_station2cid:
+    s = pydot.Subgraph( rank='same')
+    for cid in d_station2cid[station]:
+        s.add_node( pydot.Node(cid) )
+    g.add_subgraph(s)
+
 
 
 g.write_svg( 'all.svg' )
-
+#g.write_png( 'all.png' )
