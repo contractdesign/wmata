@@ -4,7 +4,9 @@ import json
 
 class wmata(object):
     'lookup the track # for a cid'
-    d_cid2entry = dict()
+    d_cid2track = dict()
+    d_cid2neighbors = dict()
+    d_cid2tc = dict()
 
     'lookup the station data for a cid'
     d_code2station = dict()
@@ -19,7 +21,29 @@ class wmata(object):
             circuits = json.load( file_circuits )
 
         for tc in circuits['TrackCircuits']:
-            self.d_cid2entry[ tc['CircuitId'] ] = tc
+            self.d_cid2track[ tc['CircuitId'] ] = tc['Track']
+
+        for tc in circuits['TrackCircuits']:
+            cid = tc['CircuitId']
+            track = tc['Track']
+            self.d_cid2tc[cid] = tc
+
+            d_entry = dict()
+            for n in tc['Neighbors']:
+                if n['NeighborType']=='Left':
+                    for c in n['CircuitIds']:
+                        if self.getTrack(c)==track:
+                            d_entry['previous']=c
+                        else:
+                            d_entry['previous_switch']=c
+
+                if n['NeighborType']=='Right':
+                    for c in n['CircuitIds']:
+                        if self.getTrack(c)==track:
+                            d_entry['next']=c
+                        else:
+                            d_entry['next_switch']=c
+            self.d_cid2neighbors[cid] = d_entry
 
         with open('json/stations.json') as file_stations:
             stations = json.load( file_stations )
@@ -43,40 +67,64 @@ class wmata(object):
 
                 self.d_cid2station[ tc['CircuitId'] ] = self.d_code2station.get( tc['StationCode'], None )
 
-    def getData( self, cid ):
-        '''return the entry associated with that cid'''
-        return self.d_cid2entry.get( cid, None )
-
     def getTrack( self, cid ):
         '''return the track # for that cid'''
-        return self.getData(cid)['Track']
+        return self.d_cid2track.get(cid, None)
 
-    def getNeighbors(self, cid):
-        '''return a tuple with lists of the left and right neighbors'''
-        left = next((n['CircuitIds'] for n in self.getData(cid)['Neighbors'] if n['NeighborType']=='Left'), None)
-        right = next((n['CircuitIds'] for n in self.getData(cid)['Neighbors'] if n['NeighborType']=='Right'), None)
-        return (left, right)
+
+    def getPrevious( self, cid ):
+        return self.d_cid2neighbors[cid].get( 'previous', None )
+
+    def getNext( self, cid ):
+        return self.d_cid2neighbors[cid].get( 'next', None )
+
+    def getPreviousSwitch( self, cid ):
+        return self.d_cid2neighbors[cid].get( 'previous_switch', None )
+
+    def getNextSwitch( self, cid ):
+        return self.d_cid2neighbors[cid].get( 'next_switch', None )
+
+
+    def getNeighbors( self, cid ):
+        l_cid = []
+
+        cid_temp = self.getPrevious( cid )
+        if cid_temp:
+            l_cid.append( cid_temp )
+
+        cid_temp = self.getNext( cid )
+        if cid_temp:
+            l_cid.append( cid_temp )
+
+        cid_temp = self.getPreviousSwitch( cid )
+        if cid_temp:
+            l_cid.append( cid_temp )
+
+        cid_temp = self.getNextSwitch( cid )
+        if cid_temp:
+            l_cid.append( cid_temp )
+
+        return l_cid
+
+
 
 
     def allCids( self ):
         '''return all of the cids in the system'''
-        return self.d_cid2entry.keys()
+        return self.d_cid2track.keys()
 
     def getEndCids( self ):
         l_cid = []
         for cid in self.d_cid2entry.keys():
-            l, r = self.getNeighbors(cid)
-            if not l or not r:
-                l_cid.append( cid )
-        return l_cid
-
-    def getSwitchCids( self ):
-        l_cid = []
-        for cid in self.allCids():
-            l, r = self.getNeighbors( cid )
-            if l and r and len(l) + len(r) > 2:
+            if not self.getPrevious(cid) or not self.getNext(cid):
                 l_cid.append(cid)
         return l_cid
+
+#    def getSwitchCids( self ):
+#        l_cid = []
+#        for cid in self.allCids():
+#            if 
+#        return l_cid
 
     def allStationCodes( self ):
         return self.d_code2station.keys()
@@ -104,89 +152,56 @@ class wmata(object):
         else:
             return ''
 
-    def getPrev( self, cid, track, same=True ):
-        track = self.getTrack( cid )
-
-        left, right = self.getNeighbors(cid)
-
-        if left:
-            for n in left:
-                if same:
-                    if self.getTrack( n )==track: 
-                        return n
-                else:
-                    if self.getTrack( n )!=track:
-                        return n
-
-        return None
-
-    def getNext( self, cid, track, same=True ):
-        track = self.getTrack( cid )
-
-        left, right = self.getNeighbors(cid)
-        if right:
-            for n in right:
-                if same:
-                    if self.getTrack( n )==track: 
-                        return n
-                else:
-                    if self.getTrack( n )!=track: 
-                        return n
-
-        return None
-
-    def followSwitch( self, cid ):
+    # TODO add lambda
+    def expandSwitch( self, cid ):
         l_cid = [cid]
 
-        track = self.getTrack(cid)
-        left, right = self.getNeighbors(cid)
-
-        # follow successors
-        cid_next = None
-        for r in right:
-            if self.getTrack(r) != track:
-                cid_next = r
-                l_cid.append(cid_next)
-                break
-        if cid_next==None:
+        # assume that has a switch
+        cid_temp = self.getNextSwitch( cid )
+        if not cid_temp:
             print 'error'
-            exit
-        print l_cid
-        exit
+            exit()
+
         while True:
-            left, right = self.getNeighbors(cid_next)
-            if not right or self.getTrack(cid_next)==2:
+            cid_next = self.getNext( cid_temp )
+            cid_next_switch = self.getNextSwitch( cid_temp )
+            if not cid_next and cid_next_switch:
+                l_cid.append( cid_temp )
+                l_cid.append( cid_next_switch)
                 break
-            cid_next = right[0]
-            l_cid.append( cid_next)
+
+            l_cid.append( cid_temp )
+            cid_temp = cid_next
+
         return l_cid
 
-
-    def expandCid( self, cid, same=True ):
-        '''return a list of all of the cids on the same track'''
         
+
+
+    def expandCid( self, cid ):
+        '''return a list of all of the cids on the same track'''
         l_cid = [cid]
-
-        track = self.getTrack(cid)
-
+ 
+        # walk forwards
         cid_temp = cid
         while True:
-            cid_new = self.getNext( cid_temp, track, same )
+            cid_new = self.getNext( cid_temp )
             if not cid_new:
                 break
+            else:
+                l_cid.append( cid_new )
+                cid_temp = cid_new
 
-            l_cid.append( cid_new )
-            cid_temp = cid_new
-
+        # walk backwards
         cid_temp = cid
         while True:
-            cid_new = self.getPrev( cid_temp, track, same )
+            cid_new = self.getPrevious( cid_temp )
             if not cid_new:
                 break
-
-            # TODO consider deque
-            l_cid.insert( 0, cid_new )
-            cid_temp = cid_new
+            else:
+                # TODO consider deque
+                l_cid.insert( 0, cid_new )
+                cid_temp = cid_new
 
         return l_cid
 
@@ -208,16 +223,15 @@ class wmata(object):
                 print '%s #%s' % (line[0] , line[1]),
         print '\t', self.getStation( cid ),
 
-        left, right = self.getNeighbors( cid )
-        if left:
-            for n in left:
-                if self.getTrack(n) != track:
-                    print 'l: (%d:%d)' % (self.getTrack(n), n ),
+        n = self.getPreviousSwitch( cid )
+        if n:
+            print '/ (%d:%d)' % (self.getTrack(n), n ),
 
-        if right:
-            for n in right:
-                if self.getTrack(n) != track:
-                    print 'r: (%d:%d)' % (self.getTrack(n), n ),
+        n = self.getNextSwitch( cid )
+        if n:
+            print '\ (%d:%d)' % (self.getTrack(n), n ),
+
+
         print
 
 

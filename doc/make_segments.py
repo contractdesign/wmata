@@ -35,7 +35,10 @@ def addSegment( g, l_cid ):
             s_line = '<TR>'
             for line in sorted(d_line2color.keys()):
                 if line in d_line2seq:
-                    s_line+= ('<TD BGCOLOR="%s">%s</TD>' % (d_line2color[line], d_line2seq[line] ) )
+                    if line == 'YLRP':
+                        s_line+= ('<TD BGCOLOR="%s">%s*</TD>' % (d_line2color[line], d_line2seq[line] ) )
+                    else:
+                        s_line+= ('<TD BGCOLOR="%s">%s</TD>' % (d_line2color[line], d_line2seq[line] ) )
             s_line += '</TR>'
         else:
             s_line = ''
@@ -151,4 +154,4 @@ for station in d_station2cid:
 
 
 g.write_svg( 'all.svg' )
-#g.write_png( 'all.png' )
+g.write_png( 'all.png' )
