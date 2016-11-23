@@ -47,13 +47,13 @@ def addSegment( g, l_cid ):
         station = w.getStation(cid)
         if station:
             label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-                            <TR><TD>%d:%d</TD> </TR>
-                            <TR> <TD>%s</TD> </TR>
+                            <TR><TD COLSPAN="7">%d:%d</TD> </TR>
+                            <TR><TD COLSPAN="7">%s</TD> </TR>
                             %s
                          </TABLE> >""" % (w.getTrack(cid), cid, station, s_line)
         else:
             label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-                            <TR><TD>%d:%d</TD> </TR>
+                            <TR><TD COLSPAN="7">%d:%d</TD> </TR>
                             %s
                          </TABLE> >""" % (w.getTrack(cid), cid, s_line )
 
@@ -125,7 +125,7 @@ for cid in w.allCids():
     if cid not in l_cid_total:
 
         label = """< <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-        <TR><TD>%d:%d</TD> </TR>
+        <TR><TD COLSPAN="7">%d:%d</TD> </TR>
         </TABLE> >""" % (w.getTrack(cid), cid )
         g.add_node( pydot.Node( cid, label=label ) )
         for n in w.getNeighbors(cid):
